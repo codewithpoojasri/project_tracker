@@ -1,47 +1,94 @@
 import 'package:flutter/material.dart';
+import 'package:project_tracker/screens/register_screen.dart';
+import 'package:project_tracker/services/auth_service.dart';
 
-class LoginScreen extends StatelessWidget {
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+import 'ProfileScreen.dart';
 
-  void _handleLogin(BuildContext context) {
-    String username = usernameController.text;
-    String password = passwordController.text;
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
 
-    // Placeholder logic for authentication
-    if (username == 'student' && password == 'password') {
-      Navigator.pushReplacementNamed(context, '/attendance');
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Invalid credentials')),
-      );
+class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final AuthService _authService = AuthService();
+
+  String username = '';
+  String password = '';
+
+  void _login() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        final response = await _authService.login(username, password);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login successful')),
+        );
+        // Navigate to ProfileScreen after successful login
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ProfileScreen()),
+        );
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $e')),
+        );
+      }
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(title: Text('Login')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: usernameController,
-              decoration: InputDecoration(labelText: 'Username'),
-            ),
-            TextField(
-              controller: passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => _handleLogin(context),
-              child: Text('Login'),
-            ),
-          ],
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Username',
+                  border: OutlineInputBorder(),
+                ),
+                onChanged: (value) => setState(() => username = value),
+                validator: (value) => value!.isEmpty ? 'Enter username' : null,
+              ),
+              SizedBox(height: 16),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  border: OutlineInputBorder(),
+                ),
+                onChanged: (value) => setState(() => password = value),
+                obscureText: true,
+                validator: (value) => value!.isEmpty ? 'Enter password' : null,
+              ),
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: _login,
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text('Login', style: TextStyle(fontSize: 16)),
+              ),
+              TextButton(
+                onPressed: () {
+                  // Navigate to Register screen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => RegisterScreen()),
+                  );
+                },
+                child: Text('Don\'t have an account? Sign Up'),
+              ),
+            ],
+          ),
         ),
       ),
     );

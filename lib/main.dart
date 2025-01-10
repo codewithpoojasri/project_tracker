@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:project_tracker/screens/login_screen.dart';
 import 'screens/login_screen.dart';
+import 'screens/register_screen.dart';
 
 void main() {
-  runApp(AttendanceApp());
+  runApp(MyApp());
 }
 
-class AttendanceApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'College Attendance System',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      initialRoute: '/login',
-      routes: {
-        '/login': (context) => LoginScreen(),
-      },
+      title: 'Student Auth',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: LoginScreen(), // Use RegisterScreen for the registration flow
     );
   }
 }
