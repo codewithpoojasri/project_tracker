@@ -17,7 +17,7 @@ class AuthService {
       int? batchId,
       String year) async {
     final response = await http.post(
-      Uri.parse('$_baseUrl/register'),
+      Uri.parse('$_baseUrl/student/register'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
@@ -44,7 +44,7 @@ class AuthService {
   // Login User
   Future<Map<String, dynamic>> login(String username, String password) async {
     final response = await http.post(
-      Uri.parse('$_baseUrl/login'),
+      Uri.parse('$_baseUrl/student/login'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },

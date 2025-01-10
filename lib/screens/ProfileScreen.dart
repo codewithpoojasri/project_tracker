@@ -28,7 +28,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
 
     final response = await http.get(
-      Uri.parse('http://localhost:5000/api/auth/profile'),
+      Uri.parse('http://localhost:5000/api/auth/student/profile'),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',  // Send the token with the request
