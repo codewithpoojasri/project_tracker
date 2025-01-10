@@ -15,59 +15,7 @@ The **Project Tracker** application is a robust and user-friendly tool designed 
 ### Technologies Used:
 
 - **Frontend**: Flutter
-- **Backend**: Node.js (Express.js framework)
-- **Database**: PostgreSQL
 - **Version Control**: Git and GitHub
-
-## Installation
-
-Follow these steps to set up the project locally:
-
-1. **Clone the repository**:
-
-   ```bash
-   git clone https://github.com/codewithpoojasri/project_tracker.git
-   cd project_tracker
-   ```
-
-2. **Install dependencies**:
-
-   - For the backend:
-     ```bash
-     cd backend
-     npm install
-     ```
-   - For the frontend:
-     ```bash
-     cd frontend
-     flutter pub get
-     ```
-
-3. **Set up the database**:
-
-   - Install PostgreSQL and create a database.
-   - Run the migration scripts (located in `backend/migrations`) to set up the database schema.
-
-4. **Start the development server**:
-
-   - Backend:
-     ```bash
-     npm start
-     ```
-   - Frontend:
-     ```bash
-     flutter run
-     ```
-
-5. **Access the application**:
-   Open your browser and go to `http://localhost:3000` to access the backend API or use an emulator/device for the Flutter frontend.
-
-## Usage
-
-1. Create a new project.
-2. Add tasks and assign them to team members.
-3. Monitor progress through the dashboard.
-4. Generate reports to review overall performance.
 
 ## Contributing
 
